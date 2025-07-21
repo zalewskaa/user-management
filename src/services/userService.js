@@ -48,13 +48,13 @@ export async function fetchUsersData() {
 }
 
 /**
- * Filters and sorts users based on criteria
+ * Filters and sorts users based on criteria with pagination
  * @param {Array} users - Array of user objects
  * @param {Object} filters - Filter criteria
- * @returns {Array} Filtered and sorted users
+ * @returns {Object} Object containing filtered users and pagination info
  */
 export function filterAndSortUsers(users, filters) {
-  const { searchTerm, language, sortBy, limit } = filters;
+  const { searchTerm, language, sortBy, page = 1, itemsPerPage = 25 } = filters;
 
   let filtered = [...users];
 
@@ -84,12 +84,50 @@ export function filterAndSortUsers(users, filters) {
     }
   });
 
-  // Apply limit
-  if (limit !== 'all') {
-    filtered = filtered.slice(0, parseInt(limit));
-  }
+  // Calculate pagination
+  const totalItems = filtered.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const currentPage = Math.max(1, Math.min(page, totalPages || 1));
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedUsers = filtered.slice(startIndex, endIndex);
 
-  return filtered;
+  return {
+    users: paginatedUsers,
+    pagination: {
+      currentPage,
+      totalPages,
+      totalItems,
+      itemsPerPage,
+      hasNextPage: currentPage < totalPages,
+      hasPrevPage: currentPage > 1,
+      startIndex: startIndex + 1,
+      endIndex: Math.min(endIndex, totalItems),
+    },
+  };
+}
+
+/**
+ * Calculate pagination information
+ * @param {number} totalItems - Total number of items
+ * @param {number} currentPage - Current page number
+ * @param {number} itemsPerPage - Items per page
+ * @returns {Object} Pagination information
+ */
+export function calculatePagination(totalItems, currentPage, itemsPerPage) {
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const validCurrentPage = Math.max(1, Math.min(currentPage, totalPages || 1));
+
+  return {
+    currentPage: validCurrentPage,
+    totalPages,
+    totalItems,
+    itemsPerPage,
+    hasNextPage: validCurrentPage < totalPages,
+    hasPrevPage: validCurrentPage > 1,
+    startIndex: (validCurrentPage - 1) * itemsPerPage + 1,
+    endIndex: Math.min(validCurrentPage * itemsPerPage, totalItems),
+  };
 }
 
 /**

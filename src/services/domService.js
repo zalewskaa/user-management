@@ -62,7 +62,7 @@ export function getDOMElements() {
     searchInputElement: document.getElementById('searchInput'),
     languageFilterElement: document.getElementById('languageFilter'),
     sortSelectElement: document.getElementById('sortSelect'),
-    limitSelectElement: document.getElementById('limitSelect'),
+    paginationSectionElement: document.getElementById('paginationSection'),
     totalUsersElement: document.getElementById('totalUsers'),
     totalLanguagesElement: document.getElementById('totalLanguages'),
     avgVersionElement: document.getElementById('avgVersion'),

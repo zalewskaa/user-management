@@ -8,9 +8,14 @@ export const appState = {
   filteredUsers: [],
   currentSort: 'name',
   currentLanguage: 'all',
-  currentLimit: 'all',
   searchTerm: '',
   isLoading: false,
+  pagination: {
+    currentPage: 1,
+    itemsPerPage: 25,
+    totalPages: 0,
+    totalItems: 0,
+  },
 };
 
 /**

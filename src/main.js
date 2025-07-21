@@ -4,6 +4,9 @@
 import { format } from 'date-fns';
 import { List } from 'immutable';
 
+// Import utilities
+import { debounce } from './utils.js';
+
 // Import services
 import {
   fetchUsersData,
@@ -39,7 +42,7 @@ import {
   setupResponsiveCharts,
   refreshAllCharts,
 } from './charts/chartManager.js';
-import { createErrorMessage } from './components/index.js';
+import { createErrorMessage, createPagination } from './components/index.js';
 
 // DOM elements (initialized once)
 let domElements = {};
@@ -55,8 +58,11 @@ function setupEventListeners() {
   const { searchInputElement, sortSelectElement, limitSelectElement } =
     domElements;
 
-  if (searchInputElement) {
-    searchInputElement.addEventListener('input', handleSearchInput);
+  if (domElements.searchInputElement) {
+    domElements.searchInputElement.addEventListener(
+      'input',
+      handleSearchInputWithFeedback
+    );
   }
 
   if (sortSelectElement) {
@@ -81,6 +87,34 @@ function handleSearchInput(e) {
   filterAndRenderUsers();
 }
 
+// Enhanced search handler with immediate state update and visual feedback
+function handleSearchInputWithFeedback(e) {
+  const searchTerm = e.target.value;
+
+  // Update state immediately for UI responsiveness and reset pagination
+  updateState({
+    searchTerm,
+    pagination: {
+      ...appState.pagination,
+      currentPage: 1, // Reset to first page when searching
+    },
+  });
+
+  // Add visual feedback to indicate search is pending
+  const searchInput = e.target;
+  searchInput.classList.add('searching');
+
+  // The actual filtering will be debounced
+  debouncedFilterAndRender(searchInput);
+} // Debounced filter function that removes visual feedback when done
+const debouncedFilterAndRender = debounce((searchInput) => {
+  filterAndRenderUsers();
+  searchInput.classList.remove('searching');
+}, 300);
+
+// Create debounced version of search handler for better performance
+const debouncedSearchHandler = debounce(handleSearchInput, 300);
+
 function handleSortChange(e) {
   updateState({ currentSort: e.target.value });
   filterAndRenderUsers();
@@ -96,6 +130,42 @@ function handleLanguageFilter(event) {
   updateState({ currentLanguage: event.target.getAttribute('data-language') });
   filterAndRenderUsers();
 }
+
+// Global function to reset all filters (called from no data message)
+window.resetFilters = function () {
+  // Reset all filter states including pagination
+  updateState({
+    searchTerm: '',
+    currentLanguage: 'all',
+    currentSort: 'name',
+    pagination: {
+      currentPage: 1,
+      itemsPerPage: 25,
+      totalPages: 0,
+      totalItems: 0,
+    },
+  });
+
+  // Reset form elements
+  if (domElements.searchInputElement) {
+    domElements.searchInputElement.value = '';
+  }
+  if (domElements.sortSelectElement) {
+    domElements.sortSelectElement.value = 'name';
+  }
+
+  // Reset language filter buttons
+  const languageButtons = document.querySelectorAll('.language-btn');
+  languageButtons.forEach((btn) => {
+    btn.classList.remove('active');
+    if (btn.getAttribute('data-language') === 'all') {
+      btn.classList.add('active');
+    }
+  });
+
+  // Re-render with all users
+  filterAndRenderUsers();
+};
 
 // Main data fetching function
 async function fetchUsers() {
@@ -146,10 +216,26 @@ async function fetchUsers() {
 // Filtering and rendering
 function filterAndRenderUsers() {
   const filters = getCurrentFilters();
-  const filtered = filterAndSortUsers(appState.allUsers, filters);
 
-  updateState({ filteredUsers: filtered });
+  // Add pagination info to filters
+  const paginationFilters = {
+    ...filters,
+    page: appState.pagination.currentPage,
+    itemsPerPage: appState.pagination.itemsPerPage,
+  };
+
+  const result = filterAndSortUsers(appState.allUsers, paginationFilters);
+
+  updateState({
+    filteredUsers: result.users,
+    pagination: {
+      ...appState.pagination,
+      ...result.pagination,
+    },
+  });
+
   renderUsers();
+  renderPagination();
 }
 
 function renderUsers() {
@@ -158,6 +244,40 @@ function renderUsers() {
   // Process images with delays to prevent overwhelming
   setTimeout(() => processUserImages(), 500);
   setTimeout(() => createAdditionalImageRequests(appState.filteredUsers), 1000);
+}
+
+function renderPagination() {
+  if (!domElements.paginationSectionElement) return;
+
+  // Clear existing pagination
+  domElements.paginationSectionElement.innerHTML = '';
+
+  // Create new pagination if needed
+  const paginationElement = createPagination(
+    appState.pagination,
+    handlePageChange
+  );
+  if (paginationElement) {
+    domElements.paginationSectionElement.appendChild(paginationElement);
+  }
+}
+
+function handlePageChange(newPage, newItemsPerPage = null) {
+  // Update pagination state
+  const updates = {
+    pagination: {
+      ...appState.pagination,
+      currentPage: newPage,
+    },
+  };
+
+  // Update items per page if provided
+  if (newItemsPerPage !== null) {
+    updates.pagination.itemsPerPage = newItemsPerPage;
+  }
+
+  updateState(updates);
+  filterAndRenderUsers();
 }
 
 function renderFilters() {

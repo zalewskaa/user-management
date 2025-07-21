@@ -93,22 +93,12 @@
           </button>
         </div>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-12">
             <label for="sortSelect">Sort by:</label>
             <select id="sortSelect" class="form-select">
               <option value="name">Name</option>
               <option value="language">Language</option>
               <option value="version">Version</option>
-            </select>
-          </div>
-          <div class="col-md-6">
-            <label for="limitSelect">Show:</label>
-            <select id="limitSelect" class="form-select">
-              <option value="10">10 users</option>
-              <option value="25">25 users</option>
-              <option value="50">50 users</option>
-              <option value="100">100 users</option>
-              <option value="all" selected>All users</option>
             </select>
           </div>
         </div>
@@ -117,6 +107,11 @@
       <!-- Users grid -->
       <section class="user-grid" id="userGrid">
         <!-- Users will be dynamically inserted here -->
+      </section>
+
+      <!-- Pagination -->
+      <section class="pagination-section" id="paginationSection">
+        <!-- Pagination will be dynamically inserted here -->
       </section>
     </main>
 
