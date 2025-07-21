@@ -8,7 +8,7 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
   color: #333;
   background-color: #f5f5f5;
@@ -628,7 +628,7 @@ body {
 
 .skeleton-dots::before,
 .skeleton-dots::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 8px;
   height: 8px;
@@ -667,7 +667,7 @@ body {
 
 .skeleton-radar-web::before,
 .skeleton-radar-web::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -696,7 +696,7 @@ body {
 
 .skeleton-radar-points::before,
 .skeleton-radar-points::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 6px;
   height: 6px;
@@ -755,7 +755,7 @@ body {
 }
 
 .no-data-description {
-  color: #6c757d;
+  color: #4d5459;
   font-size: 1rem;
   line-height: 1.5;
   margin-bottom: 2rem;
@@ -797,7 +797,7 @@ body {
 }
 
 .pagination-info {
-  color: #6c757d;
+  color: #4d5459;
   font-size: 0.9rem;
   font-weight: 500;
 }
@@ -846,7 +846,7 @@ body {
 
 .pagination-ellipsis {
   padding: 0.5rem 0.25rem;
-  color: #6c757d;
+  color: #4d5459;
   user-select: none;
 }
 

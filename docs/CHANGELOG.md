@@ -5,6 +5,35 @@ All notable changes to the User Management System project will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2025-07-21 - Repository Refactoring & Organization
+
+### Added
+
+- **Repository Structure Reorganization**: Complete folder structure refactoring for better maintainability
+  - `public/` directory for static assets and web server configuration files
+  - `config/` directory for build and development configuration files
+  - `scripts/` directory for build and deployment scripts
+  - `src/styles/` moved from root `styles/` for better source organization
+  - Improved separation of concerns with dedicated folders for different file types
+
+### Changed
+
+- **File Organization**: Moved files to appropriate directories
+  - Favicon files moved to `public/` directory (Vite standard)
+  - Configuration files (`.prettierrc`, `.prettierignore`, `vite.config.js`) moved to `config/`
+  - Server script moved to `scripts/server.js`
+  - Web server configs (`.htaccess`, `_headers`, `robots.txt`) moved to `public/`
+  - Updated all import paths and references to reflect new structure
+- **Build Configuration**: Updated build scripts and paths
+  - Fixed Vite configuration to work with new directory structure
+  - Updated package.json scripts to reference new file locations
+  - Maintained all compression and optimization features
+
+### Updated
+
+- **Documentation**: Enhanced README.md with comprehensive project structure diagram
+- **Path References**: Updated all file imports and references to new locations
+
 ## [2.3.0] - 2025-07-21 - Pagination System & UX Enhancements
 
 ### Added

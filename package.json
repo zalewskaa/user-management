@@ -1,6 +1,6 @@
 {
   "name": "performance-challenge",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "Senior Frontend Developer Performance Challenge",
   "type": "module",
   "scripts": {
@@ -8,7 +8,7 @@
     "build": "vite build",
     "build:compressed": "vite build && echo 'Build complete with compression enabled'",
     "preview": "vite preview",
-    "serve": "node server.js",
+    "serve": "node scripts/server.js",
     "start": "npm run build:compressed && npm run serve",
     "lint": "eslint . --ext js,html --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write .",
@@ -27,7 +27,7 @@
     "chart.js": "^4.4.0",
     "compression": "^1.8.1",
     "date-fns": "^2.30.0",
-    "express": "^5.1.0",
+    "express": "^4.21.2",
     "immutable": "^4.3.0",
     "ramda": "^0.29.1"
   }
