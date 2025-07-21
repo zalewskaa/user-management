@@ -1,0 +1,110 @@
+# Robots.txt for User Management System
+# Performance Challenge - Senior Frontend Developer
+# Optimized for SEO and web crawler guidance
+# Last updated: 2025-07-21
+
+# Default rules for all web crawlers
+User-agent: *
+Allow: /
+Allow: /assets/
+Allow: /styles/
+Allow: /index.html
+Allow: /favicon.ico
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /docs/
+Disallow: /package.json
+Disallow: /package-lock.json
+Disallow: /vite.config.js
+Disallow: /server.js
+Disallow: /.git/
+Disallow: /.gitignore
+Disallow: /.prettierrc
+Disallow: /.prettierignore
+Disallow: /.htaccess
+Disallow: /_headers
+Disallow: /CHANGELOG.md
+Disallow: /README.md
+Disallow: /dist/
+Disallow: /.vite/
+Disallow: /wp-admin/
+Disallow: /admin/
+Disallow: /login/
+Disallow: /wp-content/
+Disallow: /.env
+
+# Google Search bot
+User-agent: Googlebot
+Allow: /
+Allow: /assets/
+Allow: /styles/
+Allow: /index.html
+Allow: /favicon.ico
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /docs/
+Crawl-delay: 1
+
+# Bing Search bot
+User-agent: Bingbot
+Allow: /
+Allow: /assets/
+Allow: /styles/
+Allow: /index.html
+Allow: /favicon.ico
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /docs/
+Crawl-delay: 1
+
+# Yahoo Search bot
+User-agent: Slurp
+Allow: /
+Allow: /assets/
+Allow: /styles/
+Allow: /index.html
+Allow: /favicon.ico
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /docs/
+Crawl-delay: 2
+
+# Facebook link preview bot
+User-agent: facebookexternalhit
+Allow: /
+Allow: /assets/
+Allow: /styles/
+Allow: /index.html
+Allow: /favicon.ico
+
+# Twitter link preview bot
+User-agent: Twitterbot
+Allow: /
+Allow: /assets/
+Allow: /styles/
+Allow: /index.html
+Allow: /favicon.ico
+
+# LinkedIn link preview bot
+User-agent: LinkedInBot
+Allow: /
+Allow: /assets/
+Allow: /styles/
+Allow: /index.html
+Allow: /favicon.ico
+
+# Block content scraping bots
+User-agent: CCBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /

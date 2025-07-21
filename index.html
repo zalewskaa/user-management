@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Advanced User Management System with interactive analytics dashboard, real-time charts, filtering capabilities, and performance optimization. Built for senior frontend developer challenges with Chart.js, Bootstrap, and modern JavaScript."
+    />
+    <title>Performance Challenge - User Management</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/user-management/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/user-management/favicon.ico" />
+    <link rel="apple-touch-icon" href="/user-management/favicon.svg" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    />
+    <script type="module" crossorigin src="/user-management/assets/index-kA3K7GIo.js"></script>
+    <link rel="modulepreload" crossorigin href="/user-management/assets/vendor-mFn0L7wS.js">
+    <link rel="stylesheet" crossorigin href="/user-management/assets/index-CiN8fDej.css">
+  </head>
+  <body>
+    <header class="header">
+      <h1>User Management System</h1>
+      <p>Performance Challenge - Senior Frontend Developer</p>
+    </header>
+
+    <main class="container">
+      <!-- Statistics section -->
+      <section class="stats" id="stats">
+        <div class="stat-card">
+          <h2>Total Users</h2>
+          <p id="totalUsers">0</p>
+        </div>
+        <div class="stat-card">
+          <h2>Languages</h2>
+          <p id="totalLanguages">0</p>
+        </div>
+        <div class="stat-card">
+          <h2>Avg Version</h2>
+          <p id="avgVersion">0</p>
+        </div>
+        <div class="stat-card">
+          <h2>Load Time</h2>
+          <p id="loadTime">0ms</p>
+        </div>
+      </section>
+
+      <!-- Charts Dashboard Section -->
+      <section class="charts-section">
+        <h2>Analytics Dashboard</h2>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="chart-container">
+              <canvas id="timelineChart"></canvas>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="chart-container">
+              <canvas id="versionChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <div class="chart-container">
+              <canvas id="languageChart"></canvas>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="chart-container">
+              <canvas id="performanceChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Filters section -->
+      <section class="filters">
+        <input
+          type="text"
+          id="searchInput"
+          class="search-box"
+          placeholder="Search users by name..."
+        />
+        <div class="language-filter" id="languageFilter">
+          <button class="language-btn active" data-language="all">
+            All Languages
+          </button>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <label for="sortSelect">Sort by:</label>
+            <select id="sortSelect" class="form-select">
+              <option value="name">Name</option>
+              <option value="language">Language</option>
+              <option value="version">Version</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- Users grid -->
+      <section class="user-grid" id="userGrid">
+        <!-- Users will be dynamically inserted here -->
+      </section>
+
+      <!-- Pagination -->
+      <section class="pagination-section" id="paginationSection">
+        <!-- Pagination will be dynamically inserted here -->
+      </section>
+    </main>
+
+    <!-- Application scripts -->
+  </body>
+</html>
