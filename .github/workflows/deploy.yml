@@ -34,31 +34,20 @@ jobs:
           node-version: "20.18.0"
           cache: "npm"
 
-      - name: Clean install dependencies (CI optimized)
+      - name: Clean install dependencies (WASM Rollup)
         run: |
           rm -rf node_modules package-lock.json
           npm cache clean --force
-          # Use omit instead of no-optional for better compatibility
-          npm install --omit=optional --legacy-peer-deps --prefer-offline
+          # Install with WASM Rollup override for CI compatibility
+          npm install --legacy-peer-deps
         env:
-          # Force Rollup to use JavaScript implementation
-          ROLLUP_NO_NATIVE: true
           NODE_ENV: production
 
-      - name: Build for GitHub Pages (with fallbacks)
+      - name: Build for GitHub Pages (WASM Rollup)
         run: |
-          echo "🔨 Attempting CI-optimized build..."
-          npm run build:clean || {
-            echo "❌ CI build failed, trying alternative..."
-            rm -rf dist
-            npm run build:gh-pages || {
-              echo "❌ GitHub Pages build failed, trying basic build..."
-              rm -rf dist
-              npm run build
-            }
-          }
+          echo "🔨 Building with WASM Rollup for maximum CI compatibility..."
+          npm run build:ci
         env:
-          ROLLUP_NO_NATIVE: true
           NODE_ENV: production
 
       - name: Verify build output

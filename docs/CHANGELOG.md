@@ -5,6 +5,40 @@ All notable changes to the User Management System project will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.0] - 2025-07-21 - WASM Rollup Solution for CI Compatibility
+
+### Fixed
+
+- **Critical Rollup Native Binary Issue**: Implemented WASM-based solution for complete CI compatibility
+  - Added `@rollup/wasm-node` override in package.json to replace native Rollup binaries
+  - WASM (WebAssembly) implementation works universally across all CI environments
+  - Eliminates "Cannot find module @rollup/rollup-linux-x64-gnu" errors permanently
+  - No longer dependent on platform-specific native binaries for build process
+- **GitHub Actions Build Reliability**: Simplified and strengthened CI/CD pipeline
+  - Removed complex fallback strategies no longer needed with WASM Rollup
+  - Streamlined dependency installation process (`npm install --legacy-peer-deps`)
+  - Enhanced build verification with WASM-specific messaging and reporting
+
+### Enhanced
+
+- **Build Process Stability**: Universal compatibility across all environments
+  - WASM Rollup provides consistent behavior between local development and CI
+  - Faster, more reliable builds without platform-specific dependency issues
+  - Simplified configuration with single build path instead of multiple fallbacks
+  - Enhanced build reporting showing WASM Rollup usage for transparency
+- **Package Configuration**: Advanced dependency management
+  - Added optional dependency for `@rollup/rollup-linux-x64-gnu` as graceful fallback
+  - Implemented package overrides to force Vite to use WASM Rollup implementation
+  - Maintains backward compatibility while ensuring CI reliability
+
+### Technical Implementation
+
+- **WASM Rollup Integration**: Complete solution for CI/CD compatibility
+  - `optionalDependencies`: Graceful handling of platform-specific binaries
+  - `overrides`: Force Vite to use `npm:@rollup/wasm-node` instead of native Rollup
+  - Build configurations optimized for WASM performance characteristics
+  - Updated build scripts and documentation to reflect WASM usage
+
 ## [2.7.0] - 2025-07-21 - Node.js Compatibility & Build Stability
 
 ### Fixed

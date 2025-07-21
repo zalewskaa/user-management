@@ -1,6 +1,6 @@
 {
   "name": "performance-challenge",
-  "version": "2.7.0",
+  "version": "2.8.0",
   "description": "Senior Frontend Developer Performance Challenge",
   "type": "module",
   "scripts": {
@@ -21,6 +21,7 @@
     "lint:fix": "eslint . --ext js,html --fix"
   },
   "devDependencies": {
+    "@rollup/wasm-node": "^4.45.1",
     "eslint": "^8.0.0",
     "prettier": "^3.0.0",
     "terser": "^5.43.1",
@@ -35,5 +36,13 @@
     "express": "^4.21.2",
     "immutable": "^4.3.0",
     "ramda": "^0.29.1"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.44.1"
+  },
+  "overrides": {
+    "vite": {
+      "rollup": "npm:@rollup/wasm-node"
+    }
   }
 }
