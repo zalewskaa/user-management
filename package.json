@@ -1,12 +1,13 @@
 {
   "name": "performance-challenge",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "Senior Frontend Developer Performance Challenge",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "build:compressed": "vite build && echo 'Build complete with compression enabled'",
+    "build:gh-pages": "vite build --base=/user-management/",
     "preview": "vite preview",
     "serve": "node scripts/server.js",
     "start": "npm run build:compressed && npm run serve",

@@ -5,6 +5,39 @@ All notable changes to the User Management System project will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.0] - 2025-07-21 - GitHub Pages Deployment & Production Fixes
+
+### Added
+
+- **GitHub Pages Deployment Configuration**: Complete automated deployment setup
+  - GitHub Actions workflow (`.github/workflows/deploy.yml`) for automatic deployment
+  - Automated builds on every push to main branch with Node.js version from `.nvmrc`
+  - Optimized build process with compression (gzip + brotli) for GitHub Pages CDN
+  - Manual deployment trigger option via GitHub Actions interface
+  - Production-ready artifact generation and deployment to GitHub Pages
+- **GitHub Pages Build Script**: New `build:gh-pages` script with proper base path configuration
+  - Supports deployment to `https://zalewskaa.github.io/user-management/`
+  - Maintains all compression and optimization features for CDN delivery
+
+### Fixed
+
+- **Production Server Issues**: Resolved Express.js compatibility problems
+  - Downgraded Express from v5.x to v4.18.x for stability and compatibility
+  - Fixed path-to-regexp dependency conflicts that caused server crashes
+  - Corrected SPA routing handler to use proper root directory paths
+  - Server now starts successfully with compression middleware enabled
+- **Build Process**: Ensured production server works with refactored directory structure
+  - Updated server paths to work correctly from `scripts/` directory
+  - Verified Express static file serving with proper cache headers
+
+### Enhanced
+
+- **Production Deployment**: Multiple deployment options now available
+  - Local production server via `npm run serve` (Express with compression)
+  - GitHub Pages static hosting with automated CI/CD pipeline
+  - Vite preview server for quick testing via `npm run preview`
+  - All deployment methods maintain compression and optimization features
+
 ## [2.4.0] - 2025-07-21 - Repository Refactoring & Organization
 
 ### Added
