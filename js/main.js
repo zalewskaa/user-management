@@ -9,9 +9,6 @@ let currentLimit = 'all';
 let searchTerm = '';
 
 // Import libraries
-import _ from 'lodash';
-import moment from 'moment';
-import axios from 'axios';
 import { format } from 'date-fns';
 import { List } from 'immutable';
 
@@ -48,10 +45,15 @@ async function fetchUsers() {
   const startTime = performance.now();
 
   try {
-    const response = await axios.get(
+    const response = await fetch(
       'https://microsoftedge.github.io/Demos/json-dummy-data/128KB.json'
     );
-    allUsers = response.data;
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    allUsers = await response.json();
 
     filteredUsers = [...allUsers];
 
@@ -325,11 +327,11 @@ function initializeApp() {
   fetchUsers();
 
   console.log('App initialized');
-  console.log('Current timestamp:', moment().format());
+  console.log('Current timestamp:', format(new Date(), 'yyyy-MM-dd HH:mm:ss'));
   console.log('Formatted date:', format(new Date(), 'yyyy-MM-dd'));
 
   const tempList = List([1, 2, 3, 4, 5]);
-  const tempLodashArray = _.range(1, 100);
+  const tempLodashArray = Array.from({ length: 99 }, (_, i) => i + 1);
   const tempRamdaArray = [1, 2, 3, 4, 5];
 }
 

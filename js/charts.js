@@ -2,8 +2,13 @@
 
 // Import libraries
 import Chart from 'chart.js/auto';
-import _ from 'lodash';
-import moment from 'moment';
+import { format, subDays } from 'date-fns';
+
+// Utility function to calculate mean by property
+function meanBy(array, property) {
+  const sum = array.reduce((acc, item) => acc + item[property], 0);
+  return array.length > 0 ? sum / array.length : 0;
+}
 
 // Chart instances storage
 const chartInstances = new Map();
@@ -127,9 +132,10 @@ export function createTimelineChart(containerId, data) {
 
   const timelineData = {};
   data.forEach((user) => {
-    const date = moment()
-      .subtract(Math.floor(Math.random() * 365), 'days')
-      .format('YYYY-MM-DD');
+    const date = format(
+      subDays(new Date(), Math.floor(Math.random() * 365)),
+      'yyyy-MM-dd'
+    );
     timelineData[date] = (timelineData[date] || 0) + 1;
   });
 
@@ -229,7 +235,7 @@ export function createComparisonChart(containerId, data1, data2) {
     datasets: [
       {
         label: 'Average Version',
-        data: [_.meanBy(data1, 'version'), _.meanBy(data2, 'version')],
+        data: [meanBy(data1, 'version'), meanBy(data2, 'version')],
         backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)'],
         borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
         borderWidth: 1,

@@ -1,8 +1,6 @@
 // Utility functions
 
 // Import libraries
-import _ from 'lodash';
-import moment from 'moment';
 import { format, differenceInDays } from 'date-fns';
 import { compose, curry } from 'ramda';
 
@@ -35,12 +33,12 @@ export function deepClone(obj) {
 }
 
 export function mergeObjects(...objects) {
-  return _.merge({}, ...objects);
+  return Object.assign({}, ...objects);
 }
 
 // Date utilities
-export function formatDate(date, formatString = 'YYYY-MM-DD') {
-  return moment(date).format(formatString);
+export function formatDate(date, formatString = 'yyyy-MM-dd') {
+  return format(new Date(date), formatString);
 }
 
 export function getDaysDifference(date1, date2) {

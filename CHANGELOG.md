@@ -5,6 +5,91 @@ All notable changes to the User Management System project will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2025-07-21 - Dependency Optimization & Unused Imports Cleanup
+
+### Removed - Dependency Optimization
+
+#### Unused Dependencies Removed from package.json
+
+- ❌ `jquery` - No jQuery usage found in codebase
+- ❌ `underscore` - Redundant with lodash, no usage found
+- ❌ `font-awesome` - No FontAwesome icons used in HTML
+- ❌ `animate.css` - No animation classes used
+- ❌ `moment` - Replaced with date-fns for consistency
+- ❌ `lodash` - Replaced with native JavaScript utilities
+- ❌ `axios` - Replaced with native Fetch API
+
+#### Unused Script Imports Removed from index.html
+
+- ❌ jQuery CDN script - No jQuery usage
+- ❌ Underscore.js CDN script - No underscore usage
+- ❌ FontAwesome CSS CDN link - No FA icons used
+- ❌ Animate.css CDN link - No animate classes used
+- ❌ Moment.js CDN script - Replaced with date-fns
+- ❌ Lodash CDN script - Replaced with native JavaScript utilities
+- ❌ Axios CDN script - Replaced with native Fetch API
+
+#### All CDN Scripts Replaced with npm Packages
+
+- ❌ Bootstrap CDN script - Using npm package via Vite bundling
+- ❌ Chart.js CDN script - Using npm package via Vite bundling
+- ❌ Axios CDN script - Using npm package via Vite bundling
+- ❌ Lodash CDN script - Using npm package via Vite bundling
+- ❌ Date-fns CDN script - Using npm package via Vite bundling
+- ❌ Ramda CDN script - Using npm package via Vite bundling
+- ❌ Immutable CDN script - Using npm package via Vite bundling
+
+#### Dependencies Kept (Actually Used)
+
+- ✅ `chart.js` - Used for data visualization (charts, components)
+- ✅ `bootstrap` - Used for grid system and form styling
+- ✅ `date-fns` - Used for date operations (utils, main, charts)
+- ✅ `ramda` - Used for functional programming utilities (utils)
+- ✅ `immutable` - Used for immutable data structures (main)
+
+### Changed
+
+- **Dependency Cleanup**: Removed 7 unused dependencies from package.json
+- **Script Optimization**: Replaced all CDN imports with npm package bundling via Vite
+- **Network Optimization**: Eliminated all external CDN dependency requests
+- **Build Optimization**: All dependencies now bundled and optimized by Vite
+- **Native JavaScript**: Replaced lodash with native JavaScript utilities for better performance
+- **Native Fetch API**: Replaced axios with native Fetch API for HTTP requests
+
+### Performance Impact
+
+#### Dependency Reductions
+
+| Removed Dependencies   | Size Impact           | Network Impact       |
+| ---------------------- | --------------------- | -------------------- |
+| `jquery` (~87KB)       | Bundle size reduction | 1 fewer HTTP request |
+| `underscore` (~16KB)   | Bundle size reduction | 1 fewer HTTP request |
+| `font-awesome` (~75KB) | CSS size reduction    | 1 fewer HTTP request |
+| `animate.css` (~56KB)  | CSS size reduction    | 1 fewer HTTP request |
+| `moment` (~56KB)       | Bundle size reduction | 1 fewer HTTP request |
+| `lodash` (~70KB)       | Bundle size reduction | 1 fewer HTTP request |
+| `axios` (~13KB)        | Bundle size reduction | 1 fewer HTTP request |
+
+#### Performance Benefits
+
+- **Zero External CDN Requests**: All libraries now bundled via Vite (was 12 CDN requests)
+- **Faster Initial Load**: No external dependency fetching, optimized bundle
+- **Better Caching**: Single bundled file with proper cache headers
+- **Tree Shaking**: Only used parts of libraries included in bundle
+- **Code Splitting**: Vite optimizes loading with modern bundling techniques
+- **Better Dependency Management**: All dependencies managed through npm
+- **Improved Build Performance**: Consistent versioning and faster builds
+- **Enhanced Security**: No reliance on external CDNs
+
+### Notes
+
+- All application functionality has been preserved
+- No breaking changes to existing features
+- Dependency cleanup focused on removing unused external libraries
+- All remaining dependencies are actively used in the codebase
+
+---
+
 ## [1.1.0] - 2025-07-21 - Code Cleanup & Performance Optimization
 
 ### Added

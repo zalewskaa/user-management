@@ -1,8 +1,6 @@
 // Component functions
 
 // Import libraries
-import _ from 'lodash';
-import moment from 'moment';
 import Chart from 'chart.js/auto';
 
 // Create user card component

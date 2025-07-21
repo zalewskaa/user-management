@@ -1,8 +1,59 @@
 // Analytics utilities
 
+// Analytics tracking
+
 // Import libraries
-import _ from 'lodash';
-import axios from 'axios';
+// No external libraries needed - using native APIs
+
+// Utility functions to replace lodash
+function throttle(func, delay) {
+  let timeoutId;
+  let lastExecTime = 0;
+  return function (...args) {
+    const currentTime = Date.now();
+    if (currentTime - lastExecTime > delay) {
+      func.apply(this, args);
+      lastExecTime = currentTime;
+    } else {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(
+        () => {
+          func.apply(this, args);
+          lastExecTime = Date.now();
+        },
+        delay - (currentTime - lastExecTime)
+      );
+    }
+  };
+}
+
+function debounce(func, delay) {
+  let timeoutId;
+  return function (...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => func.apply(this, args), delay);
+  };
+}
+
+function groupBy(array, key) {
+  return array.reduce((result, item) => {
+    const group = item[key];
+    if (!result[group]) {
+      result[group] = [];
+    }
+    result[group].push(item);
+    return result;
+  }, {});
+}
+
+function mapValues(object, iteratee) {
+  const result = {};
+  for (const [key, value] of Object.entries(object)) {
+    result[key] =
+      typeof iteratee === 'string' ? value[iteratee] : iteratee(value);
+  }
+  return result;
+}
 
 // Analytics configuration
 const ANALYTICS_CONFIG = {
@@ -139,12 +190,28 @@ async function sendEvents(events) {
     timestamp: Date.now(),
   };
 
-  await axios.post(ANALYTICS_CONFIG.endpoint, payload, {
-    timeout: 5000,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+  try {
+    const response = await fetch(ANALYTICS_CONFIG.endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+  } catch (error) {
+    clearTimeout(timeoutId);
+    throw error;
+  }
 }
 
 // Get session ID
@@ -240,7 +307,7 @@ export function trackScrollDepth() {
     }
   };
 
-  window.addEventListener('scroll', _.throttle(trackScroll, 100));
+  window.addEventListener('scroll', throttle(trackScroll, 100));
 }
 
 // Track time on page
@@ -272,7 +339,7 @@ export function trackFormInteractions() {
 
   document.addEventListener(
     'input',
-    _.debounce((event) => {
+    debounce((event) => {
       const input = event.target;
       trackCustomEvent('form_input', {
         inputType: input.type,
@@ -320,7 +387,7 @@ export function trackSearchQueries() {
   searchInputs.forEach((input) => {
     input.addEventListener(
       'input',
-      _.debounce((event) => {
+      debounce((event) => {
         const query = event.target.value;
         if (query.length > 2) {
           trackCustomEvent('search_query', {
@@ -401,8 +468,8 @@ export function processBatchAnalytics(events) {
     hash: btoa(JSON.stringify(event)),
   }));
 
-  const groupedEvents = _.groupBy(processedEvents, 'type');
-  const eventCounts = _.mapValues(groupedEvents, 'length');
+  const groupedEvents = groupBy(processedEvents, 'type');
+  const eventCounts = mapValues(groupedEvents, 'length');
 
   trackCustomEvent('batch_processed', {
     totalEvents: events.length,
