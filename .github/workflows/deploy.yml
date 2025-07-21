@@ -34,11 +34,21 @@ jobs:
           node-version-file: ".nvmrc"
           cache: "npm"
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Clean install dependencies
+        run: |
+          rm -rf node_modules package-lock.json
+          npm cache clean --force
+          npm install --no-optional --legacy-peer-deps
 
-      - name: Build with Vite
-        run: npm run build:compressed
+      - name: Build for GitHub Pages
+        run: npm run build:clean
+
+      - name: Verify build output
+        run: |
+          echo "📁 Build contents:"
+          ls -la dist/
+          echo "📊 Asset sizes:"
+          ls -lh dist/assets/
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

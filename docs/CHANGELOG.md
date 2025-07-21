@@ -5,6 +5,42 @@ All notable changes to the User Management System project will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.0] - 2025-07-21 - GitHub Pages Build Optimization
+
+### Added
+
+- **Optimized GitHub Pages Build Configuration**: Dedicated build setup for GitHub Pages deployment
+  - Separate Vite configuration (`config/vite.config.gh-pages.js`) optimized for GitHub Pages
+  - Removed problematic compression plugins that cause Rollup issues in CI environment
+  - Clean build process with dependency optimization (`--no-optional --legacy-peer-deps`)
+  - Automated build verification with asset size reporting
+- **Enhanced Build Scripts**: Multiple build options for different deployment scenarios
+  - `build:gh-pages` - GitHub Pages specific build with correct base path
+  - `build:clean` - Clean build that removes previous artifacts
+  - `build:pages` - Complete build script with summary and verification
+  - `preview:gh-pages` - Preview GitHub Pages build locally
+- **Robust CI/CD Pipeline**: Improved GitHub Actions workflow for reliable deployments
+  - Enhanced dependency installation to handle Rollup native binary issues
+  - Build verification steps to ensure successful artifact generation
+  - Asset size reporting for build monitoring
+  - Clean cache management to prevent dependency conflicts
+
+### Fixed
+
+- **Rollup Native Binary Issues**: Resolved CI/CD build failures
+  - Fixed "Cannot find module @rollup/rollup-linux-x64-gnu" error in GitHub Actions
+  - Implemented clean dependency installation strategy
+  - Removed optional dependencies that cause conflicts in CI environment
+  - Added legacy peer deps support for compatibility
+
+### Enhanced
+
+- **Build Process Reliability**: Multiple fallback strategies for robust builds
+  - Separate configurations for local development vs GitHub Pages deployment
+  - Clean build process that ensures consistent artifact generation
+  - Enhanced error handling and build verification
+  - Optimized bundle splitting and asset management for GitHub Pages CDN
+
 ## [2.5.0] - 2025-07-21 - GitHub Pages Deployment & Production Fixes
 
 ### Added
