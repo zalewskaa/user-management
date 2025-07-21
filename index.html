@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Performance Challenge - User Management</title>
+
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+        />
+        <link rel="stylesheet" href="./styles/main.css" />
+        <link rel="stylesheet" href="./styles/components.css" />
+        <link rel="stylesheet" href="./styles/utilities.css" />
+
+        <style>
+            .header {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 2rem 0;
+                text-align: center;
+                margin-bottom: 2rem;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+        </style>
+
+        <style>
+            .critical-styles {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            .header {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 2rem;
+                text-align: center;
+            }
+            .user-card {
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                padding: 1rem;
+                margin: 1rem 0;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .loading {
+                display: none;
+                text-align: center;
+                padding: 2rem;
+            }
+            .filters {
+                margin: 2rem 0;
+                padding: 1rem;
+                background: #f8f9fa;
+                border-radius: 8px;
+            }
+            .stats {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+                margin: 2rem 0;
+            }
+            .stat-card {
+                background: white;
+                padding: 1rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                text-align: center;
+            }
+            .user-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 1rem;
+            }
+            .search-box {
+                width: 100%;
+                padding: 0.5rem;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                margin-bottom: 1rem;
+            }
+            .language-filter {
+                display: flex;
+                gap: 0.5rem;
+                flex-wrap: wrap;
+                margin-bottom: 1rem;
+            }
+            .language-btn {
+                padding: 0.25rem 0.5rem;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                background: white;
+                cursor: pointer;
+            }
+            .language-btn.active {
+                background: #007bff;
+                color: white;
+            }
+        </style>
+    </head>
+    <body class="critical-styles">
+        <header class="header">
+            <h1>User Management System</h1>
+            <p>Performance Challenge - Senior Frontend Developer</p>
+        </header>
+
+        <main class="container">
+            <!-- Loading indicator -->
+            <div id="loading" class="loading">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p>Loading users...</p>
+            </div>
+
+            <!-- Statistics section -->
+            <section class="stats" id="stats">
+                <div class="stat-card">
+                    <h3>Total Users</h3>
+                    <p id="totalUsers">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Languages</h3>
+                    <p id="totalLanguages">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Avg Version</h3>
+                    <p id="avgVersion">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Load Time</h3>
+                    <p id="loadTime">0ms</p>
+                </div>
+            </section>
+
+            <!-- Filters section -->
+            <section class="filters">
+                <input
+                    type="text"
+                    id="searchInput"
+                    class="search-box"
+                    placeholder="Search users by name..."
+                />
+                <div class="language-filter" id="languageFilter">
+                    <button class="language-btn active" data-language="all">
+                        All Languages
+                    </button>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="sortSelect">Sort by:</label>
+                        <select id="sortSelect" class="form-select">
+                            <option value="name">Name</option>
+                            <option value="language">Language</option>
+                            <option value="version">Version</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="limitSelect">Show:</label>
+                        <select id="limitSelect" class="form-select">
+                            <option value="10">10 users</option>
+                            <option value="25">25 users</option>
+                            <option value="50">50 users</option>
+                            <option value="100">100 users</option>
+                            <option value="all" selected>All users</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Users grid -->
+            <section class="user-grid" id="userGrid">
+                <!-- Users will be dynamically inserted here -->
+            </section>
+        </main>
+
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/min/moment.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/underscore@1.13.6/underscore-min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/date-fns@2.30.0/index.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/ramda@0.29.1/dist/ramda.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/immutable@4.3.0/dist/immutable.min.js"></script>
+
+        <!-- Application scripts -->
+        <script type="module" src="./js/main.js"></script>
+        <script type="module" src="./js/utils.js"></script>
+        <script type="module" src="./js/components.js"></script>
+        <script type="module" src="./js/charts.js"></script>
+        <script type="module" src="./js/analytics.js"></script>
+    </body>
+</html>
