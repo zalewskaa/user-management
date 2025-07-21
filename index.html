@@ -3,7 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Advanced User Management System with interactive analytics dashboard, real-time charts, filtering capabilities, and performance optimization. Built for senior frontend developer challenges with Chart.js, Bootstrap, and modern JavaScript."
+    />
     <title>Performance Challenge - User Management</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
 
     <link
       rel="stylesheet"
@@ -12,125 +21,61 @@
     <link rel="stylesheet" href="./styles/main.css" />
     <link rel="stylesheet" href="./styles/components.css" />
     <link rel="stylesheet" href="./styles/utilities.css" />
-
-    <style>
-      .header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 2rem 0;
-        text-align: center;
-        margin-bottom: 2rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
-    </style>
-
-    <style>
-      .critical-styles {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      .header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 2rem;
-        text-align: center;
-      }
-      .user-card {
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 1rem;
-        margin: 1rem 0;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-      .loading {
-        display: none;
-        text-align: center;
-        padding: 2rem;
-      }
-      .filters {
-        margin: 2rem 0;
-        padding: 1rem;
-        background: #f8f9fa;
-        border-radius: 8px;
-      }
-      .stats {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1rem;
-        margin: 2rem 0;
-      }
-      .stat-card {
-        background: white;
-        padding: 1rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        text-align: center;
-      }
-      .user-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 1rem;
-      }
-      .search-box {
-        width: 100%;
-        padding: 0.5rem;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        margin-bottom: 1rem;
-      }
-      .language-filter {
-        display: flex;
-        gap: 0.5rem;
-        flex-wrap: wrap;
-        margin-bottom: 1rem;
-      }
-      .language-btn {
-        padding: 0.25rem 0.5rem;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        background: white;
-        cursor: pointer;
-      }
-      .language-btn.active {
-        background: #007bff;
-        color: white;
-      }
-    </style>
   </head>
-  <body class="critical-styles">
+  <body>
     <header class="header">
       <h1>User Management System</h1>
       <p>Performance Challenge - Senior Frontend Developer</p>
     </header>
 
     <main class="container">
-      <!-- Loading indicator -->
-      <div id="loading" class="loading">
-        <div class="spinner-border" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-        <p>Loading users...</p>
-      </div>
-
       <!-- Statistics section -->
       <section class="stats" id="stats">
         <div class="stat-card">
-          <h3>Total Users</h3>
+          <h2>Total Users</h2>
           <p id="totalUsers">0</p>
         </div>
         <div class="stat-card">
-          <h3>Languages</h3>
+          <h2>Languages</h2>
           <p id="totalLanguages">0</p>
         </div>
         <div class="stat-card">
-          <h3>Avg Version</h3>
+          <h2>Avg Version</h2>
           <p id="avgVersion">0</p>
         </div>
         <div class="stat-card">
-          <h3>Load Time</h3>
+          <h2>Load Time</h2>
           <p id="loadTime">0ms</p>
+        </div>
+      </section>
+
+      <!-- Charts Dashboard Section -->
+      <section class="charts-section">
+        <h2>Analytics Dashboard</h2>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="chart-container">
+              <canvas id="timelineChart"></canvas>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="chart-container">
+              <canvas id="versionChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <div class="chart-container">
+              <canvas id="languageChart"></canvas>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="chart-container">
+              <canvas id="performanceChart"></canvas>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -176,10 +121,6 @@
     </main>
 
     <!-- Application scripts -->
-    <script type="module" src="./js/main.js"></script>
-    <script type="module" src="./js/utils.js"></script>
-    <script type="module" src="./js/components.js"></script>
-    <script type="module" src="./js/charts.js"></script>
-    <script type="module" src="./js/analytics.js"></script>
+    <script type="module" src="./src/main.js"></script>
   </body>
 </html>

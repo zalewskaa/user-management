@@ -1,0 +1,38 @@
+# Netlify _headers file for compression and caching
+
+/*
+  # Enable compression
+  Content-Encoding: gzip
+  Vary: Accept-Encoding
+  
+# Cache static assets for 1 year
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache CSS and JS for 1 year
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: text/css
+
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: application/javascript
+
+# Cache fonts for 1 year
+/*.woff
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: font/woff
+
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: font/woff2
+
+# Cache HTML for 1 hour
+/*.html
+  Cache-Control: public, max-age=3600
+  Content-Type: text/html
+
+# Root HTML
+/
+  Cache-Control: public, max-age=3600
+  Content-Type: text/html
