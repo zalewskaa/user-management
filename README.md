@@ -26,11 +26,11 @@ The application fetches user data from: `https://microsoftedge.github.io/Demos/j
 Your solution should demonstrate:
 
 1. **Bundle Size Reduction**: A significant reduction in bundle size
-2. **Performance Improvement**: 
+2. **Performance Improvement**:
    - Better initial load time
    - Better search response time
    - Smooth scrolling
-3. **Best Practices**: 
+3. **Best Practices**:
    - Proper error handling
    - Accessibility compliance
    - Optimised code for faster execution
@@ -47,11 +47,13 @@ Your solution should demonstrate:
 ## Getting Started
 
 1. Install dependencies:
+
    ```bash
    npm install
    ```
 
 2. Start development server:
+
    ```bash
    npm run dev
    ```
@@ -79,4 +81,4 @@ Your solution will be evaluated on:
 4. **Performance Monitoring**: Add real-time performance monitoring
 5. **Accessibility**: Ensure WCAG 2.1 AA compliance
 
-Good luck! This challenge will test your ability to think critically about performance and implement effective solutions. 
+Good luck! This challenge will test your ability to think critically about performance and implement effective solutions.
