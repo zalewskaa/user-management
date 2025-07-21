@@ -5,6 +5,41 @@ All notable changes to the User Management System project will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0] - 2025-07-21 - Node.js Compatibility & Build Stability
+
+### Fixed
+
+- **Node.js Version Compatibility**: Resolved Rollup native binary issues
+  - Updated Node.js version from v23.6.1 to v20.18.0 LTS for better build tool compatibility
+  - Node.js v23+ has limited support for Rollup native binaries, causing CI failures
+  - LTS version provides stable ecosystem support for all build dependencies
+- **Rollup Native Binary Issues**: Multiple fallback strategies implemented
+  - Created CI-specific Vite configuration (`config/vite.config.ci.js`) using esbuild instead of terser
+  - Added JavaScript fallback mode with `ROLLUP_NO_NATIVE=true` environment variable
+  - Implemented multi-level build fallback strategy in GitHub Actions workflow
+  - Build process now tries: CI-optimized → GitHub Pages → Basic build as fallbacks
+
+### Enhanced
+
+- **Build Process Reliability**: Comprehensive error handling and recovery
+  - Multiple Vite configurations for different deployment scenarios
+  - Enhanced GitHub Actions workflow with build verification and fallback strategies
+  - Improved dependency installation with `--omit=optional --legacy-peer-deps --prefer-offline`
+  - Build output verification ensures successful artifact generation before deployment
+- **Performance Optimizations**: CI-specific optimizations
+  - esbuild minification for faster, more reliable builds in CI environments
+  - Disabled compressed size reporting to speed up build process
+  - Optimized target settings (`es2020`) for broader compatibility
+  - Streamlined asset bundling with consistent hash naming
+
+### Added
+
+- **CI-Optimized Build Configuration**: Dedicated configuration for GitHub Actions
+  - `build:ci` script using esbuild for maximum compatibility
+  - Environment-specific settings to avoid platform-dependent issues
+  - Enhanced error handling with detailed build verification
+  - Multiple configuration options for different deployment needs
+
 ## [2.6.0] - 2025-07-21 - GitHub Pages Build Optimization
 
 ### Added

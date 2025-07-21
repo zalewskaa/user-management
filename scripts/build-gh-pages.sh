@@ -6,8 +6,8 @@
 echo "🧹 Cleaning previous build..."
 rm -rf dist
 
-echo "📦 Building for GitHub Pages..."
-npm run build:gh-pages
+echo "📦 Building for GitHub Pages (CI optimized)..."
+npm run build:ci
 
 echo "📋 Build Summary:"
 echo "📁 Build output: dist/"
