@@ -40,6 +40,11 @@ jobs:
           npm cache clean --force
           # Install with WASM Rollup override for CI compatibility
           npm install --legacy-peer-deps
+          # Verify installations
+          echo "📦 Verifying installations..."
+          npx vite --version
+          node --version
+          npm --version
         env:
           NODE_ENV: production
 

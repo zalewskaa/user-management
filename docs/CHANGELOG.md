@@ -5,6 +5,24 @@ All notable changes to the User Management System project will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.1] - 2025-07-21 - CI PATH and Executable Fix
+
+### Fixed
+
+- **Vite Executable Not Found in CI**: Resolved "vite: not found" error in GitHub Actions
+  - Updated all build scripts to use `npx vite` instead of `vite` for better CI compatibility
+  - `npx` ensures Vite is found even when node_modules/.bin is not in PATH
+  - Added verification steps in CI to confirm Vite installation and accessibility
+  - Enhanced error detection and reporting for build tool availability
+
+### Enhanced
+
+- **Build Script Reliability**: Improved executable resolution across all environments
+  - All npm scripts now use `npx` prefix for consistent behavior
+  - Enhanced GitHub Actions workflow with installation verification
+  - Better error messages and debugging information in CI logs
+  - Consistent behavior between local development and CI environments
+
 ## [2.8.0] - 2025-07-21 - WASM Rollup Solution for CI Compatibility
 
 ### Fixed
