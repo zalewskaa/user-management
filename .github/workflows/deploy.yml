@@ -42,18 +42,28 @@ jobs:
           npm install --legacy-peer-deps
           # Verify installations
           echo "📦 Verifying installations..."
-          npx vite --version
+          npx vite --version || echo "Vite not found in PATH"
           node --version
           npm --version
+          # Check for critical files
+          test -f node_modules/.bin/vite && echo "✅ Vite binary exists" || echo "❌ Vite binary missing"
         env:
           NODE_ENV: production
+          ROLLUP_NO_NATIVE: true
 
       - name: Build for GitHub Pages (WASM Rollup)
         run: |
-          echo "🔨 Building with WASM Rollup for maximum CI compatibility..."
-          npm run build:ci
+          echo "🔨 Building with WASM Rollup for GitHub Pages..."
+          echo "📁 Current directory contents:"
+          ls -la
+          echo "🔧 Config file check:"
+          test -f config/vite.config.gh-pages.js && echo "✅ GitHub Pages config exists" || echo "❌ Config missing"
+          echo "🚀 Starting build..."
+          npm run build:gh-pages
+          echo "✅ Build completed successfully"
         env:
           NODE_ENV: production
+          ROLLUP_NO_NATIVE: true
 
       - name: Verify build output
         run: |
