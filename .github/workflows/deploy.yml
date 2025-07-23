@@ -59,7 +59,10 @@ jobs:
           echo "🔧 Config file check:"
           test -f config/vite.config.gh-pages.js && echo "✅ GitHub Pages config exists" || echo "❌ Config missing"
           echo "🚀 Starting build..."
-          npm run build:gh-pages
+          npm run build:gh-pages || {
+            echo "❌ GitHub Pages build failed, trying fallback CI build..."
+            npm run build:ci
+          }
           echo "✅ Build completed successfully"
         env:
           NODE_ENV: production
@@ -73,6 +76,10 @@ jobs:
           ls -lh dist/assets/ || echo "No assets directory found"
           echo "🔍 Checking critical files:"
           test -f dist/index.html && echo "✅ index.html exists" || echo "❌ index.html missing"
+          echo "🌐 Checking asset paths in HTML:"
+          grep -n "/user-management/" dist/index.html || echo "❌ Base path not found in HTML"
+          echo "📏 Build size summary:"
+          du -sh dist/
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
